@@ -12,6 +12,7 @@ import XCTest
 class DailyTemperatureViewControllerTests: XCTestCase {
     
     var sut: DailyTemperatureViewController!
+    let mockApiHelper = MockOpenWeatherMapApiHelper()
 
     override func setUp() {
         super.setUp()

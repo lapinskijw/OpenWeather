@@ -9,9 +9,13 @@
 /* Begin PBXBuildFile section */
 		1A13967823DA71F90091BACE /* DailyTemperatureViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967723DA71F90091BACE /* DailyTemperatureViewControllerTests.swift */; };
 		1A13967B23DA86CD0091BACE /* CurrentWeatherInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967A23DA86CD0091BACE /* CurrentWeatherInformation.swift */; };
-		1A13968023DA8F0B0091BACE /* OpenWeatherMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967F23DA8F0B0091BACE /* OpenWeatherMapHelper.swift */; };
-		1A13968123DA8F0B0091BACE /* OpenWeatherMapHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967F23DA8F0B0091BACE /* OpenWeatherMapHelper.swift */; };
+		1A13968023DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967F23DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift */; };
+		1A13968123DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967F23DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift */; };
 		1AA14E3223DBABEB0030D522 /* CurrentWeatherInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A13967A23DA86CD0091BACE /* CurrentWeatherInformation.swift */; };
+		1AA14E3423DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA14E3323DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift */; };
+		1AA14E3623DBE7860030D522 /* MockOpenWeatherMapApiHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA14E3523DBE7860030D522 /* MockOpenWeatherMapApiHelper.swift */; };
+		1AA14E3823DBEA5B0030D522 /* OpenWeatherApiHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA14E3323DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift */; };
+		1AA14E3B23DBEC960030D522 /* OpenWeatherMapApiHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AA14E3A23DBEC960030D522 /* OpenWeatherMapApiHelperTests.swift */; };
 		1AF090F423DA5D25004A96D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF090F323DA5D25004A96D9 /* AppDelegate.swift */; };
 		1AF090F623DA5D25004A96D9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF090F523DA5D25004A96D9 /* SceneDelegate.swift */; };
 		1AF090F823DA5D25004A96D9 /* DailyTemperatureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AF090F723DA5D25004A96D9 /* DailyTemperatureViewController.swift */; };
@@ -35,7 +39,10 @@
 /* Begin PBXFileReference section */
 		1A13967723DA71F90091BACE /* DailyTemperatureViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyTemperatureViewControllerTests.swift; sourceTree = "<group>"; };
 		1A13967A23DA86CD0091BACE /* CurrentWeatherInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherInformation.swift; sourceTree = "<group>"; };
-		1A13967F23DA8F0B0091BACE /* OpenWeatherMapHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapHelper.swift; sourceTree = "<group>"; };
+		1A13967F23DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapApiHelper.swift; sourceTree = "<group>"; };
+		1AA14E3323DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherApiHelperProtocol.swift; sourceTree = "<group>"; };
+		1AA14E3523DBE7860030D522 /* MockOpenWeatherMapApiHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockOpenWeatherMapApiHelper.swift; sourceTree = "<group>"; };
+		1AA14E3A23DBEC960030D522 /* OpenWeatherMapApiHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherMapApiHelperTests.swift; sourceTree = "<group>"; };
 		1AF090F023DA5D25004A96D9 /* WeatherApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1AF090F323DA5D25004A96D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1AF090F523DA5D25004A96D9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,9 +100,25 @@
 		1A13967C23DA8CD00091BACE /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				1A13967F23DA8F0B0091BACE /* OpenWeatherMapHelper.swift */,
+				1A13967F23DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		1AA14E3723DBE78C0030D522 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				1AA14E3523DBE7860030D522 /* MockOpenWeatherMapApiHelper.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		1AA14E3923DBEC6A0030D522 /* Helper Tests */ = {
+			isa = PBXGroup;
+			children = (
+				1AA14E3A23DBEC960030D522 /* OpenWeatherMapApiHelperTests.swift */,
+			);
+			path = "Helper Tests";
 			sourceTree = "<group>";
 		};
 		1AF090E723DA5D25004A96D9 = {
@@ -129,6 +152,7 @@
 				1AF090FC23DA5D27004A96D9 /* Assets.xcassets */,
 				1AF090FE23DA5D27004A96D9 /* LaunchScreen.storyboard */,
 				1AF0910123DA5D27004A96D9 /* Info.plist */,
+				1AA14E3323DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift */,
 			);
 			path = WeatherApp;
 			sourceTree = "<group>";
@@ -136,9 +160,11 @@
 		1AF0910923DA5D27004A96D9 /* WeatherAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				1AA14E3923DBEC6A0030D522 /* Helper Tests */,
+				1AA14E3723DBE78C0030D522 /* Mocks */,
 				1A13967623DA71C00091BACE /* Controller Tests */,
-				1AF0910A23DA5D27004A96D9 /* WeatherAppTests.swift */,
 				1AF0910C23DA5D27004A96D9 /* Info.plist */,
+				1AF0910A23DA5D27004A96D9 /* WeatherAppTests.swift */,
 			);
 			path = WeatherAppTests;
 			sourceTree = "<group>";
@@ -332,7 +358,8 @@
 			files = (
 				1AF090F823DA5D25004A96D9 /* DailyTemperatureViewController.swift in Sources */,
 				1A13967B23DA86CD0091BACE /* CurrentWeatherInformation.swift in Sources */,
-				1A13968023DA8F0B0091BACE /* OpenWeatherMapHelper.swift in Sources */,
+				1A13968023DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift in Sources */,
+				1AA14E3423DBE63D0030D522 /* OpenWeatherApiHelperProtocol.swift in Sources */,
 				1AF090F423DA5D25004A96D9 /* AppDelegate.swift in Sources */,
 				1AF090F623DA5D25004A96D9 /* SceneDelegate.swift in Sources */,
 			);
@@ -342,10 +369,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1A13968123DA8F0B0091BACE /* OpenWeatherMapHelper.swift in Sources */,
+				1A13968123DA8F0B0091BACE /* OpenWeatherMapApiHelper.swift in Sources */,
 				1AF0910B23DA5D27004A96D9 /* WeatherAppTests.swift in Sources */,
 				1A13967823DA71F90091BACE /* DailyTemperatureViewControllerTests.swift in Sources */,
+				1AA14E3823DBEA5B0030D522 /* OpenWeatherApiHelperProtocol.swift in Sources */,
 				1AA14E3223DBABEB0030D522 /* CurrentWeatherInformation.swift in Sources */,
+				1AA14E3623DBE7860030D522 /* MockOpenWeatherMapApiHelper.swift in Sources */,
+				1AA14E3B23DBEC960030D522 /* OpenWeatherMapApiHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -501,7 +531,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = JWL.codingChallenge.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -521,7 +551,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = JWL.codingChallenge.WeatherApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

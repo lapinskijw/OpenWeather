@@ -26,6 +26,11 @@ class CurrentWeatherInformation: Codable {
         case name
     }
     
+    init(atmosphere:Atmosphere, name:String) {
+        self.atmosphere = atmosphere
+        self.name = name
+    }
+    
     required public init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         self.atmosphere = try values.decode(Atmosphere.self, forKey: .atmosphere)

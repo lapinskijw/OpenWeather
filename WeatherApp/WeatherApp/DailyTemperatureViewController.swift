@@ -26,6 +26,9 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         super.viewDidLoad()
         self.view.backgroundColor = .white
         getUserLocation()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
         updateViews()
     }
     
@@ -42,12 +45,17 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
             latitude = location.coordinate.latitude
             longitude = location.coordinate.longitude
             getTempFromCoordinates(lat: latitude!, long: longitude!)
+            print("\(latitude!), \(longitude!)")
         }
     }
     
     func getTempFromCoordinates(lat:CLLocationDegrees, long:CLLocationDegrees) {
-        let helper = OpenWeatherMapHelper()
-        helper.fetchCurrentTemperatureForCoordinates(latitude: lat, longitude: long) { currentWeatherInformation in
+        let helper = OpenWeatherMapApiHelper()
+        helper.fetchCurrentTemperatureForCoordinates(latitude: lat, longitude: long) { (currentWeatherInformation, error) in
+            if error != nil {
+                self.presentErrorAlertView()
+            }
+            
             if let currentWeatherInformation = currentWeatherInformation {
                 self.currentTemperature = self.convertTemp(temp: currentWeatherInformation.atmosphere.temp, from: .kelvin, to: .fahrenheit)
                 self.currentCity = currentWeatherInformation.name
@@ -56,6 +64,10 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
                 }
             }
         }
+    }
+    
+    func presentErrorAlertView() {
+        // to do
     }
     
     // MARK: - Views and Constraints
@@ -75,7 +87,12 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         cityLabel.font = UIFont.systemFont(ofSize: 25)
         cityLabel.textAlignment = .center
         cityLabel.textColor = .blue
-        cityLabel.text = currentCity
+        if CLLocationManager.locationServicesEnabled() {
+            cityLabel.text = currentCity
+        } else {
+            cityLabel.text = "Location services not authroized."
+        }
+        
         self.view.addSubview(cityLabel)
         
         fiveDayForecastButton.setTitle("VIEW 5 DAY FORECAST", for: .normal)
@@ -112,6 +129,18 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        switch status {
+        case .notDetermined:
+            manager.requestLocation()
+        case .authorizedWhenInUse:
+            self.getUserLocation()
+        default:
+            // do something
+            updateViews()
+        }
     }
     
 }
