@@ -19,7 +19,8 @@ class DailyTemperatureViewControllerTests: XCTestCase {
     }
 
     override func tearDown() {
+        sut = nil
         super.tearDown()
     }
-
+    
 }
