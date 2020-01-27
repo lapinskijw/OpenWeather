@@ -22,7 +22,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         let dailyTempViewController = DailyTemperatureViewController()
-        window?.rootViewController = dailyTempViewController
+        let navigationController = UINavigationController(rootViewController: dailyTempViewController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

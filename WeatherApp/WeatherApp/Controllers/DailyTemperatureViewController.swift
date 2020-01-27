@@ -25,6 +25,7 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = .white
+        self.navigationItem.title = "Current Temperature"
         getUserLocation()
     }
     
@@ -45,7 +46,6 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
             latitude = location.coordinate.latitude
             longitude = location.coordinate.longitude
             getTempFromCoordinates(lat: latitude!, long: longitude!)
-            print("\(latitude!), \(longitude!)")
         }
     }
     
@@ -53,11 +53,14 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         let helper = OpenWeatherMapApiHelper()
         helper.fetchCurrentTemperatureForCoordinates(latitude: lat, longitude: long) { (currentWeatherInformation, error) in
             if error != nil {
-                self.presentErrorAlertView()
+                DispatchQueue.main.async {
+                    self.presentErrorAlertView()
+                }
             }
             
             if let currentWeatherInformation = currentWeatherInformation {
-                self.currentTemperature = self.convertTemp(temp: currentWeatherInformation.atmosphere.temp, from: .kelvin, to: .fahrenheit)
+                let utility = Utility()
+                self.currentTemperature = utility.convertTemp(temp: currentWeatherInformation.atmosphere.temp, from: .kelvin, to: .fahrenheit)
                 self.currentCity = currentWeatherInformation.name
                 DispatchQueue.main.async {
                     self.updateViews()
@@ -67,7 +70,15 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
     }
     
     func presentErrorAlertView() {
-        // to do
+        let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again later.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    @objc func presentFiveDayViewController() {
+        let fiveDayWeatherViewController = FiveDayWeatherViewController(lat: latitude, long: longitude)
+        self.navigationController?.pushViewController(fiveDayWeatherViewController, animated: true)
     }
     
     // MARK: - Views and Constraints
@@ -92,14 +103,14 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         } else {
             cityLabel.text = "Location services not authroized."
         }
-        
         self.view.addSubview(cityLabel)
         
         fiveDayForecastButton.setTitle("VIEW 5 DAY FORECAST", for: .normal)
         fiveDayForecastButton.backgroundColor = .blue
         fiveDayForecastButton.setTitleColor(.white, for: .normal)
-        fiveDayForecastButton.titleLabel?.font = UIFont.systemFont(ofSize: 12)
+        fiveDayForecastButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         fiveDayForecastButton.layer.cornerRadius = 20
+        fiveDayForecastButton.addTarget(self, action: #selector(presentFiveDayViewController), for: .touchUpInside)
         self.view.addSubview(fiveDayForecastButton)
     }
     
@@ -143,18 +154,5 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         }
     }
     
-}
-
-    // MARK: - DailyTemperatureViewController Extension
-
-extension DailyTemperatureViewController {
-    func convertTemp(temp: Double, from inputTempType: UnitTemperature, to outputTempType: UnitTemperature) -> String {
-        let measurementFormatter = MeasurementFormatter()
-        measurementFormatter.numberFormatter.maximumFractionDigits = 0
-        measurementFormatter.unitOptions = .providedUnit
-        let input = Measurement(value: temp, unit: inputTempType)
-        let output = input.converted(to: outputTempType)
-        return measurementFormatter.string(from: output)
-    }
 }
 
