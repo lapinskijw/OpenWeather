@@ -12,5 +12,5 @@ import CoreLocation
 protocol OpenWeatherMapApiHelperProtocol {
     func fetchCurrentTemperatureForCoordinates(latitude:CLLocationDegrees, longitude:CLLocationDegrees, completion:@escaping (_ weatherInfo:CurrentWeatherInformation?, Error?) -> Void)
     
-    func fetchFiveDayForecastForCoordinates(latitude:CLLocationDegrees, longitude:CLLocationDegrees, completion:@escaping (_ weatherForecasts:[FiveDayWeatherInformation.List]?, Error?) -> Void)
+    func fetchFiveDayForecastForCoordinates(latitude:CLLocationDegrees, longitude:CLLocationDegrees, completion:@escaping (_ weatherForecasts:[FiveDayWeatherInformation.ForecastItem]?, Error?) -> Void)
 }

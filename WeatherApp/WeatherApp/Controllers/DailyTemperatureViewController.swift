@@ -17,10 +17,10 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
     var longitude: CLLocationDegrees?
     var currentTemperature: String?
     var currentCity: String?
-    
     var temperatureLabel = UILabel()
     var cityLabel = UILabel()
     var fiveDayForecastButton = UIButton()
+    let utility = Utility()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,26 +54,18 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         helper.fetchCurrentTemperatureForCoordinates(latitude: lat, longitude: long) { (currentWeatherInformation, error) in
             if error != nil {
                 DispatchQueue.main.async {
-                    self.presentErrorAlertView()
+                    self.utility.showAlertFromController(self)
                 }
             }
             
             if let currentWeatherInformation = currentWeatherInformation {
-                let utility = Utility()
-                self.currentTemperature = utility.convertTemp(temp: currentWeatherInformation.atmosphere.temp, from: .kelvin, to: .fahrenheit)
+                self.currentTemperature = self.utility.convertTemp(temp: currentWeatherInformation.atmosphere.temp, from: .kelvin, to: .fahrenheit)
                 self.currentCity = currentWeatherInformation.name
                 DispatchQueue.main.async {
                     self.updateViews()
                 }
             }
         }
-    }
-    
-    func presentErrorAlertView() {
-        let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again later.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     @objc func presentFiveDayViewController() {
@@ -149,7 +141,6 @@ class DailyTemperatureViewController: UIViewController, CLLocationManagerDelegat
         case .authorizedWhenInUse:
             self.getUserLocation()
         default:
-            // do something
             updateViews()
         }
     }

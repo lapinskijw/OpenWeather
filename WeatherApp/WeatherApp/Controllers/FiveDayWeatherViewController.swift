@@ -15,7 +15,7 @@ class FiveDayWeatherViewController: UIViewController, UITableViewDelegate, UITab
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
     var forecastTableView = UITableView()
-    var arrayOfListObjects = [FiveDayWeatherInformation.List]()
+    var arrayOfListObjects = [FiveDayWeatherInformation.ForecastItem]()
     var utility = Utility()
     let dateFormatter = DateFormatter()
     
@@ -49,7 +49,7 @@ class FiveDayWeatherViewController: UIViewController, UITableViewDelegate, UITab
         helper.fetchFiveDayForecastForCoordinates(latitude: lat, longitude: long) { (fiveDayForecastInfos, error) in
             if error != nil {
                 DispatchQueue.main.async {
-                    self.presentErrorAlertView()
+                    self.utility.showAlertFromController(self)
                 }
             }
             
@@ -61,13 +61,6 @@ class FiveDayWeatherViewController: UIViewController, UITableViewDelegate, UITab
                 }
             }
         }
-    }
-    
-    func presentErrorAlertView() {
-        let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again later.", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alert.addAction(okAction)
-        self.present(alert, animated: true, completion: nil)
     }
     
     // MARK: - UITableViewDelegate Methods

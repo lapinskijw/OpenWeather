@@ -10,10 +10,14 @@ import Foundation
 
 class FiveDayWeatherInformation: Decodable {
     struct RootList : Decodable {
-        let list : [List]
+        let forecastItems : [ForecastItem]
+        
+        enum CodingKeys: String, CodingKey {
+            case forecastItems = "list"
+        }
     }
 
-    struct List : Decodable {
+    struct ForecastItem : Decodable {
         let main : Main
         let weather : [Weather]
         let dateText : String

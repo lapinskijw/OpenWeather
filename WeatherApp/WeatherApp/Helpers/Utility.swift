@@ -20,6 +20,13 @@ class Utility {
         return measurementFormatter.string(from: output)
     }
     
+    func showAlertFromController(_ controller:UIViewController) {
+        let alert = UIAlertController(title: "Error", message: "Something went wrong, please try again later.", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alert.addAction(okAction)
+        controller.present(alert, animated: true, completion: nil)
+    }
+    
 }
 
     // MARK: - Extensions

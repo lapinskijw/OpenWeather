@@ -39,7 +39,7 @@ class OpenWeatherMapApiHelper: OpenWeatherMapApiHelperProtocol {
         task.resume()
     }
     
-    func fetchFiveDayForecastForCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (_ weatherForecasts:[FiveDayWeatherInformation.List]?, Error?) -> Void) {
+    func fetchFiveDayForecastForCoordinates(latitude: CLLocationDegrees, longitude: CLLocationDegrees, completion: @escaping (_ weatherForecasts:[FiveDayWeatherInformation.ForecastItem]?, Error?) -> Void) {
 
         let url = URL(string: "http://api.openweathermap.org/data/2.5/forecast?lat=\(latitude)&lon=\(longitude)&APPID=4f11e5f9367b11137e143e130257a48e")
         let urlRequest = URLRequest(url: url!)
@@ -51,7 +51,7 @@ class OpenWeatherMapApiHelper: OpenWeatherMapApiHelperProtocol {
             
             do {
                 let forecasts = try JSONDecoder().decode(FiveDayWeatherInformation.RootList.self, from:data)
-                completion(forecasts.list, nil)
+                completion(forecasts.forecastItems, nil)
             } catch {
                 print(error)
             }
